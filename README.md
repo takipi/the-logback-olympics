@@ -1,4 +1,2 @@
-the-logback-olympics
+The Logback Olympics
 ====================
-
-Benchmarking Logback appenders / layouts and more
