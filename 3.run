@@ -1,0 +1,126 @@
+#!/bin/bash
+#
+set -x
+for i in {1..5}
+do
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback AsyncAppenderDefaultsTest $i
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback AsyncAppender500Test $i
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback AsyncAppender1000XTest $i
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback ConsoleAppenderTest $i quiet > logs/logback-ConsoleAppenderTest_-$i
+mv logs/logback-ConsoleAppenderTest_-$i logs/logback-ConsoleAppenderTest-$i
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderClassInsteadofLoggerTest $i
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderOnlyLevelAndMsgTest $i
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderOnlyMsgTest $i
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderTest $i
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderWithoutDateTest $i
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderWithoutLoggerTest $i
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderWithoutThreadTest $i
+
+# Starting two processes running PrudentModeAppenderTest simultaneously
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback PrudentModeAppenderTest $i &
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback PrudentModeAppenderTest $i &
+wait
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback SiftingAppenderTest $i
+cat logs/sift-* > logs/logback-SiftingAppenderTest-$i
+rm logs/sift-*
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback SocketAppenderTest $i startServer
+
+
+# line Length 80
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback AsyncAppenderDefaultsTest $i 80
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback AsyncAppender500Test $i 80
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback AsyncAppender1000XTest $i 80
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback ConsoleAppenderTest $i 80 quiet > logs/logback-ConsoleAppenderTest_msgLength_80_-$i
+mv logs/logback-ConsoleAppenderTest_msgLength_80_-$i logs/logback-ConsoleAppenderTest_msgLength_80-$i
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderClassInsteadofLoggerTest $i 80
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderOnlyLevelAndMsgTest $i 80
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderOnlyMsgTest $i 80
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderTest $i 80
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderWithoutDateTest $i 80
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderWithoutLoggerTest $i 80
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderWithoutThreadTest $i 80
+
+# Starting two processes running PrudentModeAppenderTest simultaneously
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback PrudentModeAppenderTest $i 80 &
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback PrudentModeAppenderTest $i 80 &
+wait
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback SiftingAppenderTest $i 80
+cat logs/sift-* > logs/logback-SiftingAppenderTest_msgLength_80-$i
+rm logs/sift-*
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback SocketAppenderTest $i 80 startServer
+
+
+# line Length 160
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback AsyncAppenderDefaultsTest $i 160
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback AsyncAppender500Test $i 160
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback AsyncAppender1000XTest $i 160
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback ConsoleAppenderTest $i 160 quiet > logs/logback-ConsoleAppenderTest_msgLength_160_-$i
+mv logs/logback-ConsoleAppenderTest_msgLength_160_-$i logs/logback-ConsoleAppenderTest_msgLength_160-$i
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderClassInsteadofLoggerTest $i 160
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderOnlyLevelAndMsgTest $i 160
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderOnlyMsgTest $i 160
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderTest $i 160
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderWithoutDateTest $i 160
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderWithoutLoggerTest $i 160
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderWithoutThreadTest $i 160
+
+# Starting two processes running PrudentModeAppenderTest simultaneously
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback PrudentModeAppenderTest $i 160 &
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback PrudentModeAppenderTest $i 160 &
+wait
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback SiftingAppenderTest $i 160
+cat logs/sift-* > logs/logback-SiftingAppenderTest_msgLength_160-$i
+rm logs/sift-*
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback SocketAppenderTest $i 160 startServer
+
+
+# line Length equalLogLineLength
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback AsyncAppenderDefaultsTest $i equalLogLineLength
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback AsyncAppender500Test $i equalLogLineLength
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback AsyncAppender1000XTest $i equalLogLineLength
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback ConsoleAppenderTest $i equalLogLineLength quiet > logs/logback-ConsoleAppenderTest_equalLogLineLength_-$i
+mv logs/logback-ConsoleAppenderTest_equalLogLineLength_-$i logs/logback-ConsoleAppenderTest_equalLogLineLength-$i
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderClassInsteadofLoggerTest $i equalLogLineLength
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderOnlyLevelAndMsgTest $i equalLogLineLength
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderOnlyMsgTest $i equalLogLineLength
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderTest $i equalLogLineLength
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderWithoutDateTest $i equalLogLineLength
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderWithoutLoggerTest $i equalLogLineLength
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback FileAppenderWithoutThreadTest $i equalLogLineLength
+
+# Starting two processes running PrudentModeAppenderTest simultaneously
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback PrudentModeAppenderTest $i equalLogLineLength &
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback PrudentModeAppenderTest $i equalLogLineLength &
+wait
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback SiftingAppenderTest $i equalLogLineLength
+cat logs/sift-* > logs/logback-SiftingAppenderTest_equalLogLineLength-$i
+rm logs/sift-*
+
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback SocketAppenderTest $i equalLogLineLength startServer
+
+
+
+# old tests
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback DebugTest $i
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback HelloWorldTest $i
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback ThrowableTest $i
+java -Xms2000m -jar target/the-logging-olympics-1.0-SNAPSHOT-jar-with-dependencies.jar logback ToStringTest $i
+
+done
+

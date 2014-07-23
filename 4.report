@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+set -x
+rm -f report.csv
+for file in logs/logback-*1; do 
+	echo -n $(echo $file | sed -e "s|^logs/||" | sed -e "s|-1$||") | tee -a report.csv;
+	for i in {1..5}; do 
+		fileN=$(echo $file | sed -e "s/1$/$i/")
+		echo -n ",$(cat $fileN | wc -l)" | tee -a report.csv;
+	done; 
+	echo "" | tee -a report.csv;
+done

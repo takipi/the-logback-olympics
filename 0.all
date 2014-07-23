@@ -1,0 +1,7 @@
+#!/bin/bash
+set -x
+
+./1.clean
+./2.build
+./3.run
+./4.report

@@ -1,0 +1,180 @@
+<configuration>
+	<appender name="SIFT" class="ch.qos.logback.classic.sift.SiftingAppender">
+		<!-- in the absence of the class attribute, it is assumed that the desired 
+			discriminator type is ch.qos.logback.classic.sift.MDCBasedDiscriminator -->
+		<discriminator>
+			<key>logid</key>
+			<defaultValue>unknown</defaultValue>
+		</discriminator>
+		<sift>
+			<appender name="FILE-${logid}" class="ch.qos.logback.core.FileAppender">
+				<file>logs/sift-${logid}.log</file>
+				<append>false</append>
+				<layout class="ch.qos.logback.classic.PatternLayout">
+					<pattern>%date [%thread] %level %logger - %msg%n</pattern>
+				</layout>
+			</appender>
+		</sift>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>logs/test.log</file>
+		<encoder>
+			<pattern>%date [%thread] %level %logger - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE_PRUDENT" class="ch.qos.logback.core.FileAppender">
+		<file>logs/test.log</file>
+		<prudent>true</prudent>
+		<encoder>
+			<pattern>%date [%thread] %level %logger - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="FILE_OLM" class="ch.qos.logback.core.FileAppender">
+		<file>logs/test.log</file>
+		<encoder>
+			<pattern>%level %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE_OM" class="ch.qos.logback.core.FileAppender">
+		<file>logs/test.log</file>
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE_WOD" class="ch.qos.logback.core.FileAppender">
+		<file>logs/test.log</file>
+		<encoder>
+			<pattern>[%thread] %level %logger - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE_WOL" class="ch.qos.logback.core.FileAppender">
+		<file>logs/test.log</file>
+		<encoder>
+			<pattern>%date [%thread] %level - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE_WOT" class="ch.qos.logback.core.FileAppender">
+		<file>logs/test.log</file>
+		<encoder>
+			<pattern>%date %level %logger - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE_CIL" class="ch.qos.logback.core.FileAppender">
+		<file>logs/test.log</file>
+		<encoder>
+			<pattern>%date [%thread] %level %class - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="ASYNC_DEFAULTS" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="FILE" />
+	</appender>
+
+	<appender name="ASYNC500" class="ch.qos.logback.classic.AsyncAppender">
+		<queueSize>500</queueSize>
+		<discardingThreshold>0</discardingThreshold>
+		<appender-ref ref="FILE" />
+	</appender>
+
+	<appender name="ASYNC1000X" class="ch.qos.logback.classic.AsyncAppender">
+		<queueSize>1000000</queueSize>
+		<discardingThreshold>0</discardingThreshold>
+		<appender-ref ref="FILE" />
+	</appender>
+
+	<appender name="SOCKET" class="ch.qos.logback.classic.net.SocketAppender">
+		<remoteHost>localhost</remoteHost>
+		<port>6000</port>
+		<reconnectionDelay>10000</reconnectionDelay>
+		<includeCallerData>false</includeCallerData>
+	</appender>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date [%thread] %level %logger - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.takipi.benchmark.logging.tests.SiftingAppenderTest"
+		level="info" additivity="false">
+		<appender-ref ref="SIFT" />
+	</logger>
+
+	<logger name="com.takipi.benchmark.logging.tests.AsyncAppenderDefaultsTest"
+		level="info" additivity="false">
+		<appender-ref ref="ASYNC_DEFAULTS" />
+	</logger>
+
+	<logger name="com.takipi.benchmark.logging.tests.AsyncAppender500Test"
+		level="info" additivity="false">
+		<appender-ref ref="ASYNC500" />
+	</logger>
+
+	<logger name="com.takipi.benchmark.logging.tests.AsyncAppender1000XTest"
+		level="info" additivity="false">
+		<appender-ref ref="ASYNC1000X" />
+	</logger>
+
+	<logger name="com.takipi.benchmark.logging.tests.SocketAppenderTest"
+		level="info" additivity="false">
+		<appender-ref ref="SOCKET" />
+	</logger>
+
+	<logger name="com.takipi.benchmark.logging.tests.ConsoleAppenderTest"
+		level="info" additivity="false">
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+	<logger name="com.takipi.benchmark.logging.tests.PrudentModeAppenderTest"
+		level="info" additivity="false">
+		<appender-ref ref="FILE_PRUDENT" />
+	</logger>
+
+	<logger
+		name="com.takipi.benchmark.logging.tests.FileAppenderOnlyLevelAndMsgTest"
+		level="info" additivity="false">
+		<appender-ref ref="FILE_OLM" />
+	</logger>
+
+	<logger name="com.takipi.benchmark.logging.tests.FileAppenderOnlyMsgTest"
+		level="info" additivity="false">
+		<appender-ref ref="FILE_OM" />
+	</logger>
+
+	<logger
+		name="com.takipi.benchmark.logging.tests.FileAppenderWithoutDateTest"
+		level="info" additivity="false">
+		<appender-ref ref="FILE_WOD" />
+	</logger>
+
+	<logger
+		name="com.takipi.benchmark.logging.tests.FileAppenderWithoutLoggerTest"
+		level="info" additivity="false">
+		<appender-ref ref="FILE_WOL" />
+	</logger>
+
+	<logger
+		name="com.takipi.benchmark.logging.tests.FileAppenderWithoutThreadTest"
+		level="info" additivity="false">
+		<appender-ref ref="FILE_WOT" />
+	</logger>
+
+	<logger
+		name="com.takipi.benchmark.logging.tests.FileAppenderClassInsteadofLoggerTest"
+		level="info" additivity="false">
+		<appender-ref ref="FILE_CIL" />
+	</logger>
+	
+	<root level="info">
+		<appender-ref ref="FILE" />
+	</root>
+
+</configuration>
